@@ -1,0 +1,40 @@
+{% extends 'knowl/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h1>Home</h1>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Date Uploaded</th>
+      <th scope="col">Owner</th>
+      <th scope="col">View</th>
+      <th scope="col">Share</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for file in files %}
+    <tr>
+      <td>{{ file.file.name }}</td>
+      <td>{{ file.uploaded_at }}</td>
+      <td>{{ file.owner.username }}</td>
+      <td><a href="{{ file.file.url }}" target="_blank">View</a></td>
+      <td><a href="{% url 'share_file' file.id %}">Share</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
+{% block sidebar %}
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <fieldset class="form-group">
+    <legend class="border-bottom mb-4">Upload File</legend>
+    {{ f_form|crispy }}
+  </fieldset>
+  <div class="form-group">
+    <button class="btn btn-outline-info" type="submit">Upload</button>
+  </div>
+</form>
+{% endblock %}
