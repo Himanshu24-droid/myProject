@@ -1,0 +1,37 @@
+# Ignore database files
+*.sqlite3
+*.db
+
+# Ignore migration files
+**/migrations/
+
+# Ignore secret keys
+*.env
+
+# Ignore compiled Python files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore local settings file
+myProject/settings.py
+
+media/
+
+# Ignore logs and other generated files
+*.log
+*.pot
+*.pyc
+*.pot
+*.orig
+*.swp
+*.bak
+*.tmp
+*.py~
+.DS_Store
+.idea/
+.vscode/
+
+# Ignore virtual environment
+venv/

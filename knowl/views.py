@@ -32,13 +32,16 @@ def home(request):
 @login_required
 def share_file(request, file_id):
     file = get_object_or_404(Document, id=file_id, owner=request.user)
+
+    shared_users = file.shared_with.all()
+
+    available_users = User.objects.exclude(id=request.user.id).exclude(id__in=shared_users)
+
     if request.method == 'POST':
         shared_users = request.POST.getlist('shared_users')
         file.shared_with.set(shared_users)
         return redirect('knowl-home')
 
-    users = User.objects.exclude(id=request.user.id)
-
-    context = {'file': file, 'users': users}
+    context = {'file': file, 'users': available_users}
 
     return render(request, 'knowl/share_file.html', context)
